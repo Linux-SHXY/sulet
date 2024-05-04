@@ -1,0 +1,142 @@
+//以下为debian系列linux发行版软件包管理器apt, apt-get dpkg的使用说明,本文档来自tldr
+
+1.apt
+基于Debian的发行版的软件包管理工具.
+被推荐的"apt-get"的替代当交互地使用在Ubuntu 16.04及更新的版本.
+对于其他包管理器中的等效命令, 参见 https://wiki.archlinux.org/title/Pacman/Rosetta.
+更多信息: https://manpages.debian.org/latest/apt/apt.8.html.
+- 更新可用的软件包和版本列表 (推荐在其他 `apt` 命令前执行):
+	sudo apt update
+- 搜索给出的软件包:
+	apt search package
+- 列出软件包的信息:
+	apt show package
+- 安装软件包, 或更新它到最新可用版本:
+	sudo apt install package
+- 删除一个软件包 (使用 `purge` 也删除其配置文件):
+	sudo apt remove package
+- 升级所有的软件包到其最新可用版本:
+	sudo apt upgrade
+- 列出所有软件包:
+	apt -list
+- 列出已安装的软件包:
+	apt list --installed
+
+2. apt-get
+Debian和Ubuntu的软件包管理工具.
+搜索软件包用 `apt-cache`
+更多信息: https://manpages.debian.org/latest/apt/apt-get.8.html.
+(注: apt-get用法和apt用法相同, 因此省略tldr中重复的部分, 将apt换成apt-get就行了)
+- 清理本地软件源 - 删除包文件 (`.deb`) 从不能被下载的中断的下载中
+	apt-get autoclean
+- 删除所有不再需要的软件包
+	apt-get autoremove
+- 升级安装的软件包 (就像 `upgrade`), 但是删除过时的软件包以及安装新的附加软件包来满足新的依赖
+	apt-get dist-upgrade
+
+3.dpkg
+Debian 软件包管理器
+一些子命令像`dpkg deb` 有它自己的用法文档.
+更多信息:  https://manpages.debian.org/latest/dpkg/dpkg.html.
+- 安装软件包
+	dpkg -i path/to/file.deb
+- 卸载软件包
+	dpkg -r package_name
+- 列出已安装的软件包
+	dpkg -l pattern
+- 列出软件包的内容
+	dpkg -L package_name
+- 列出本地软件包的内容
+	dpkg -c path/to/file.deb
+- 找出哪个软件包拥有一个文件:
+	dpkg -S filename
+
+===========================以下是英文原文====================================
+
+1.apt
+
+Package management utility for Debian based distributions.
+  Recommended replacement for `apt-get` when used interactively in Ubuntu versions 16.04 and later.
+  For equivalent commands in other package managers, see https://wiki.archlinux.org/title/Pacman/Rosetta.
+  More information: https://manpages.debian.org/latest/apt/apt.8.html.
+
+  - Update the list of available packages and versions (it's recommended to run this before other `apt` commands):
+    sudo apt update
+
+  - Search for a given package:
+    apt search package
+
+  - Show information for a package:
+    apt show package
+
+  - Install a package, or update it to the latest available version:
+    sudo apt install package
+
+  - Remove a package (using `purge` instead also removes its configuration files):
+    sudo apt remove package
+
+  - Upgrade all installed packages to their newest available versions:
+    sudo apt upgrade
+
+  - List all packages:
+    apt list
+
+  - List installed packages:
+    apt list --installed
+
+2.apt-get
+
+  Debian and Ubuntu package management utility.
+  Search for packages using `apt-cache`.
+  More information: https://manpages.debian.org/latest/apt/apt-get.8.html.
+
+  - Update the list of available packages and versions (it's recommended to run this before other `apt-get` commands):
+    apt-get update
+
+  - Install a package, or update it to the latest available version:
+    apt-get install package
+
+  - Remove a package:
+    apt-get remove package
+
+  - Remove a package and its configuration files:
+    apt-get purge package
+
+  - Upgrade all installed packages to their newest available versions:
+    apt-get upgrade
+
+  - Clean the local repository - removing package files (`.deb`) from interrupted downloads that can no longer be downloaded:
+    apt-get autoclean
+
+  - Remove all packages that are no longer needed:
+    apt-get autoremove
+
+  - Upgrade installed packages (like `upgrade`), but remove obsolete packages and install additional packages to meet new dependencies:
+    apt-get dist-upgrade
+
+3.dpkg
+
+  Debian package manager.
+  Some subcommands such as `dpkg deb` have their own usage documentation.
+  For equivalent commands in other package managers, see https://wiki.archlinux.org/title/Pacman/Rosetta.
+  More information: https://manpages.debian.org/latest/dpkg/dpkg.html.
+
+  - Install a package:
+    dpkg -i path/to/file.deb
+
+  - Remove a package:
+    dpkg -r package_name
+
+  - List installed packages:
+    dpkg -l pattern
+
+  - List a package's contents:
+    dpkg -L package_name
+
+  - List contents of a local package file:
+    dpkg -c path/to/file.deb
+
+  - Find out which package owns a file:
+    dpkg -S filename
+
+

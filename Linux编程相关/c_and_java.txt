@@ -1,0 +1,250 @@
+在Linux中配置编程环境
+首先需要一个编辑器, 如vim emacs等
+
+1.C/C++
+
+	对于C/C++, 需要安装base-devel(对于Arch系列发行版), build-essential(对于Debian系列发行版), gcc gcc-c++ kernel-devel make(对于Redhat或其他发行版)
+   
+	编译需要用gcc或make, 调试用gdb
+	
+	gcc用法:
+
+    预处理和编译 C 和 C++ 源文件，然后将它们组装和链接在一起。
+    更多信息：https://gcc.gnu.org。
+
+   - 将多个源文件编译成一个可执行文件：
+     gcc path/to/source1.c path/to/source2.c ... -o path/to/output_executable
+
+   - 在输出中显示常见警告、调试符号，并在不影响调试的情况下进行优化：
+     gcc path/to/source.c -Wall -g -Og -o path/to/output_executable
+
+   - 包括来自不同路径的库：
+     gcc path/to/source.c -o path/to/output_executable -Ipath/to/header -Lpath/to/library -llibrary_name
+
+   - 将源代码编译成汇编指令：
+     gcc -S path/to/source.c
+
+   - 在不链接的情况下将源代码编译成目标文件：
+     gcc -c path/to/source.c
+
+	 make用法:
+
+	 Makefile 中描述的目标的任务运行器。
+   主要用于控制从源代码编译可执行文件。
+   更多信息：https://www.gnu.org/software/make/manual/make.html。
+
+   - 调用 Makefile 中指定的第一个目标（通常命名为“all”）：
+     make
+
+   - 调用特定目标：
+     make target
+
+   - 调用特定目标，一次并行执行 4 个作业：
+     make -j4 target
+
+   - 使用特定的 Makefile：
+     make --file path/to/file
+
+   - 从另一个目录执行 make：
+     make --directory path/to/directory
+
+   - 强制制作目标，即使源文件未更改：
+     make --always-make target
+
+   - 覆盖 Makefile 中定义的变量：
+     make --always-make target
+
+   - 通过环境覆盖 Makefile 中定义的变量：
+     make --environment-overrides target
+
+	 gdb用法:
+	 
+	 GNU 调试器。
+   更多信息：https://www.gnu.org/software/gdb。
+
+   - 调试可执行文件：
+     gdb executable
+
+   - 将进程附加到 gdb：
+     gdb -p procID
+
+   - 使用核心文件进行调试：
+     gdb -c core executable
+
+   - 启动时执行给定的 GDB 命令：
+     gdb -ex "commands" executable
+
+   - 启动 gdb 并将参数传递给可执行文件：
+     gdb --args executable argument1 argument2
+
+2.Java
+
+	对于Java, 需要安装jdk jre两个软件包
+
+	编译需要用javac, 执行用java
+
+	java用法:
+
+	Java 应用程序启动器。
+   更多信息：https://docs.oracle.com/en/java/javase/19/docs/specs/man/java.html。
+
+   - 仅使用类名执行包含 main 方法的 java `.class` 文件：
+     java classname
+
+   - 执行 java 程序并使用额外的第三方或用户定义的类：
+     java -classpath path/to/classes1:path/to/classes2:. classname
+
+   - 执行一个 .jar 程序：
+     java -jar filename.jar
+
+   - 执行带有调试等待连接到端口 5005 的 .jar 程序：
+     java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005 -jar filename.jar
+
+   - 显示 JDK、JRE 和 HotSpot 版本：
+     java -version
+
+   - 显示 java 命令的使用信息：
+     java -help
+
+	 javac用法
+
+	 Java 应用程序编译器。
+   更多信息：https://docs.oracle.com/en/java/javase/19/docs/specs/man/javac.html。
+
+   - 编译一个 .java 文件：
+     javac文件.java
+
+   - 编译几个 .java 文件：
+     javac file1.java file2.java file3.java
+
+   - 编译当前目录中的所有 .java 文件：
+     javac *.java
+
+   - 编译 .java 文件并将生成的类文件放在特定目录中：
+     javac -d path/to/directory file.java
+
+======================用法部分选自tldr, 以下为英文原文=============================
+
+❯ tldr gcc
+
+  gcc
+
+  Preprocess and compile C and C++ source files, then assemble and link them together.
+  More information: https://gcc.gnu.org.
+
+  - Compile multiple source files into an executable:
+    gcc path/to/source1.c path/to/source2.c ... -o path/to/output_executable
+
+  - Show common warnings, debug symbols in output, and optimize without affecting debugging:
+    gcc path/to/source.c -Wall -g -Og -o path/to/output_executable
+
+  - Include libraries from a different path:
+    gcc path/to/source.c -o path/to/output_executable -Ipath/to/header -Lpath/to/library -llibrary_name
+
+  - Compile source code into Assembler instructions:
+    gcc -S path/to/source.c
+
+  - Compile source code into an object file without linking:
+    gcc -c path/to/source.c
+
+❯ tldr make
+
+  make
+
+  Task runner for targets described in Makefile.
+  Mostly used to control the compilation of an executable from source code.
+  More information: https://www.gnu.org/software/make/manual/make.html.
+
+  - Call the first target specified in the Makefile (usually named "all"):
+    make
+
+  - Call a specific target:
+    make target
+
+  - Call a specific target, executing 4 jobs at a time in parallel:
+    make -j4 target
+
+  - Use a specific Makefile:
+    make --file path/to/file
+
+  - Execute make from another directory:
+    make --directory path/to/directory
+
+  - Force making of a target, even if source files are unchanged:
+    make --always-make target
+
+  - Override a variable defined in the Makefile:
+    make target variable=new_value
+
+  - Override variables defined in the Makefile by the environment:
+    make --environment-overrides target
+
+❯ tldr gdb
+
+  gdb
+
+  The GNU Debugger.
+  More information: https://www.gnu.org/software/gdb.
+
+  - Debug an executable:
+    gdb executable
+
+  - Attach a process to gdb:
+    gdb -p procID
+
+  - Debug with a core file:
+    gdb -c core executable
+
+  - Execute given GDB commands upon start:
+    gdb -ex "commands" executable
+
+  - Start gdb and pass arguments to the executable:
+    gdb --args executable argument1 argument2
+
+❯ tldr java
+
+  java
+
+  Java application launcher.
+  More information: https://docs.oracle.com/en/java/javase/19/docs/specs/man/java.html.
+
+  - Execute a java `.class` file that contains a main method by using just the class name:
+    java classname
+
+  - Execute a java program and use additional third-party or user-defined classes:
+    java -classpath path/to/classes1:path/to/classes2:. classname
+
+  - Execute a `.jar` program:
+    java -jar filename.jar
+
+  - Execute a `.jar` program with debug waiting to connect on port 5005:
+    java -agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:5005 -jar filename.jar
+
+  - Display JDK, JRE and HotSpot versions:
+    java -version
+
+  - Display usage information for the java command:
+    java -help
+
+❯ tldr javac
+
+  javac
+
+  Java application compiler.
+  More information: https://docs.oracle.com/en/java/javase/19/docs/specs/man/javac.html.
+
+  - Compile a `.java` file:
+    javac file.java
+
+  - Compile several `.java` files:
+    javac file1.java file2.java file3.java
+
+  - Compile all `.java` files in current directory:
+    javac *.java
+
+  - Compile a `.java` file and place the resulting class file in a specific directory:
+    javac -d path/to/directory file.java
+
+===================================================================================
+
+欢迎大家批评指正

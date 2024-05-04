@@ -1,0 +1,99 @@
+//以下为redhat系列linux发行版软件包管理器yum, dnf的使用说明,本文档来自tldr
+
+1.yum 
+RHEL, Fedora,和CentOS(较老版本的)的软件包管理工具
+更多信息:  https://manned.org/yum.
+- 安装新软件包
+	yum install package
+- 安装新软件包并对所有问题都假设是(也用于更新. 特别是自动更新)
+	yum -y install package
+- 找到提供一个特定命令的软件包
+	yum provides command
+- 删除软件包
+    yum remove package
+- 显示已安装软件包的可用更新
+    yum check-update
+- 更新安已安装的软件包到最新可用版本
+    yum upgrade
+
+2.dnf
+RHEL, Fedora CentOS的包管理工具(替代yum)
+更多信息: https://dnf.readthedocs.io.
+- 更新已安装的软件包到最新可用版本
+	sudo dnf upgrade
+- 搜索软件包通过关键词
+	dnf search keywords
+- 显示一个软件包的详细信息
+	dnf info package
+- 安装新软件(用 `-y` 自动确认所有提示)
+	sudo dnf install package
+- 删除软件包
+	sudo dnf remove package
+- 列出已安装的软件包
+	dnf list --installed
+- 找出哪个软件包提供一个给出的文件
+	dnf provides file
+- 查看所有以前的操作
+	dnf history
+
+================以下为英文原文=================
+
+❯ tldr yum
+
+  yum
+
+  Package management utility for RHEL, Fedora, and CentOS (for older versions).
+  For equivalent commands in other package managers, see https://wiki.archlinux.org/title/Pacman/Rosetta.
+  More information: https://manned.org/yum.
+
+  - Install a new package:
+    yum install package
+
+  - Install a new package and assume yes to all questions (also works with update, great for automated updates):
+    yum -y install package
+
+  - Find the package that provides a particular command:
+    yum provides command
+
+  - Remove a package:
+    yum remove package
+
+  - Display available updates for installed packages:
+    yum check-update
+
+  - Upgrade installed packages to the newest available versions:
+    yum upgrade
+
+❯ tldr dnf
+
+  dnf
+
+  Package management utility for RHEL, Fedora, and CentOS (replaces yum).
+  For equivalent commands in other package managers, see https://wiki.archlinux.org/title/Pacman/Rosetta.
+  More information: https://dnf.readthedocs.io.
+
+  - Upgrade installed packages to the newest available versions:
+    sudo dnf upgrade
+
+  - Search packages via keywords:
+    dnf search keywords
+
+  - Display details about a package:
+    dnf info package
+
+  - Install a new package (use `-y` to confirm all prompts automatically):
+    sudo dnf install package
+
+  - Remove a package:
+    sudo dnf remove package
+
+  - List installed packages:
+    dnf list --installed
+
+  - Find which packages provide a given file:
+    dnf provides file
+
+  - View all past operations:
+    dnf history
+
+

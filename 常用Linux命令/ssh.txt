@@ -1,0 +1,104 @@
+关于ssh
+
+安全外壳协议（Secure Shell Protocol，简称SSH）是一种加密的网络传输协议，可在不安全的网络中为网络服务提供安全的传输环境。SSH通过在网络中创建安全隧道来实现SSH客户端与服务器之间的连接。SSH最常见的用途是远程登录系统，人们通常利用SSH来传输命令行界面和远程执行命令。
+
+ssh命令用法: (选自tldr, 具体用法可参见man)
+ssh
+
+   Secure Shell 是一种用于安全登录远程系统的协议。
+   它可用于在远程服务器上记录或执行命令。
+   更多信息：https://man.openbsd.org/ssh。
+
+   - 连接到远程服务器：
+     ssh 用户名@remote_host
+
+   - 连接到具有特定身份（私钥）的远程服务器：
+     ssh -i path/to/key_file username@remote_host
+
+   - 使用特定端口连接到远程服务器：
+     ssh 用户名@remote_host -p 2222
+
+   - 在具有允许与远程命令交互的 [t]ty 分配的远程服务器上运行命令：
+     ssh 用户名@remote_host -t 命令 command_arguments
+
+   - SSH 隧道：动态端口转发（“localhost:1080”上的 SOCKS 代理）：
+     ssh -D 1080 用户名@remote_host
+
+   - SSH 隧道：转发特定端口（`localhost:9999` 到 `example.org:80`），同时禁用远程命令的伪 [T]ty 分配和执行 [N]：
+     ssh -L 9999:example.org:80 -N -T username@remote_host
+
+   - SSH 跳转：通过跳转主机连接到远程服务器（可以指定多个跳转，以逗号分隔）：
+     ssh -J 用户名@jump_host 用户名@remote_host
+
+   - 代理转发：将身份验证信息转发到远程机器（有关可用选项，请参阅 `man ssh_config`）：
+     ssh -A 用户名@remote_host
+
+Linux下常见的ssh图形前端:
+
+1.Remmina
+
+Remmina 是一个远程桌面客户端，适用于基于 POSIX 的计算机操作系统。 通过集成且一致的用户界面，Remmina 支持多种网络协议。 Remmina 使用免费的 RDP 作为基础，支持 VNC、SPICE、SSH、XDMCP、X2GO 和 NX 协议。
+
+主要特征：
+
+显示和隐藏工具栏。
+最小化窗口。
+自动调整窗口。
+切换全屏模式。
+切换标签页。
+抢键盘。
+切换缩放模式。
+
+
+2.PuTTY
+
+PuTTY 是一个免费的开源 SSH 和 telnet 客户端，最初是为 Windows 开发的，但后来可用于 Linux 和 MAC。 遥控器易于使用，并提供简洁明了的用户界面来进行远程连接。
+
+除了 SSH 之外，它还提供使用 telnet 和 rlogin（由于安全问题现已弃用）和 SFTP 协议进行远程连接的选项。 此外，它还提供了一种与路由器和交换机等设备进行串行连接的途径。
+
+PuTTY 还允许您保存连接，这样您就不必通过指定连接详细信息重新开始。
+
+主要特征：
+
+它提供对 32 位和 64 位系统的支持。
+PuTTY 简单且具有用户友好的界面。
+支持SSH、telnet、SFTP、Rlogin、Serial等常用连接协议。
+它支持 SSH1 和 SSH2。
+PuTTY 保存会话配置、日志记录和代理设置。
+
+等等等等
+
++++++++++++++++++以下为tldr英文原文+++++++++++++++
+
+
+  ssh
+
+  Secure Shell is a protocol used to securely log onto remote systems.
+  It can be used for logging or executing commands on a remote server.
+  More information: https://man.openbsd.org/ssh.
+
+  - Connect to a remote server:
+    ssh username@remote_host
+
+  - Connect to a remote server with a specific identity (private key):
+    ssh -i path/to/key_file username@remote_host
+
+  - Connect to a remote server using a specific port:
+    ssh username@remote_host -p 2222
+
+  - Run a command on a remote server with a [t]ty allocation allowing interaction with the remote command:
+    ssh username@remote_host -t command command_arguments
+
+  - SSH tunneling: Dynamic port forwarding (SOCKS proxy on `localhost:1080`):
+    ssh -D 1080 username@remote_host
+
+  - SSH tunneling: Forward a specific port (`localhost:9999` to `example.org:80`) along with disabling pseudo-[T]ty allocation and executio[N] of remote commands:
+    ssh -L 9999:example.org:80 -N -T username@remote_host
+
+  - SSH jumping: Connect through a jumphost to a remote server (Multiple jump hops may be specified separated by comma characters):
+    ssh -J username@jump_host username@remote_host
+
+  - Agent forwarding: Forward the authentication information to the remote machine (see `man ssh_config` for available options):
+    ssh -A username@remote_host
+
+

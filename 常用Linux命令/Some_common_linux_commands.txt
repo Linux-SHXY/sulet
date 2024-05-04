@@ -1,0 +1,770 @@
+This document briefly lists some commonly used Linux commands and their usage (arranged in no particular order), for specific instructions, please refer to the detailed explanation of each command. These are common to all distributions, so no distribution-specific commands such as package managers are listed. You can query commands with man or tldr. man comes with the system, but tldr needs to be installed. Among them, man is more detailed but difficult to understand, and tldr is simpler but easy to understand. The usage is man/tldr command. If you use man to query ls command is "man ls", Use tldr is "tldr ls". Press q to exit after querying with man.
+
+1.ls
+List directory contents.
+
+  - List files one per line:
+    ls -1
+
+  - List all files, including hidden files:
+    ls -a
+
+  - List all files, with trailing `/` added to directory names:
+    ls -F
+
+  - Long format list (permissions, ownership, size, and modification date) of all files:
+    ls -la
+
+  - Long format list with size displayed using human-readable units (KiB, MiB, GiB):
+    ls -lh
+
+  - Long format list sorted by size (descending):
+    ls -lS
+
+  - Long format list of all files, sorted by modification date (oldest first):
+    ls -ltr
+
+  - Only list directories:
+    ls -d */
+
+  - use a long listing format
+    ls -l
+
+2.cd
+Change the current working directory.
+ - Go to the specified directory:
+    cd path/to/directory
+
+  - Go up to the parent of the current directory:
+    cd ..
+
+  - Go to the home directory of the current user:
+    cd
+
+  - Go to the home directory of the specified user:
+    cd ~username
+
+  - Go to the previously chosen directory:
+    cd -
+
+  - Go to the root directory:
+    cd /
+
+3.cp
+Copy files and directories.
+  - Copy a file to another location:
+    cp path/to/source_file.ext path/to/target_file.ext
+
+  - Copy a file into another directory, keeping the filename:
+    cp path/to/source_file.ext path/to/target_parent_directory
+
+  - Recursively copy a directory's contents to another location (if the destination exists, the directory is copied inside it):
+    cp -r path/to/source_directory path/to/target_directory
+
+  - Copy a directory recursively, in verbose mode (shows files as they are copied):
+    cp -vr path/to/source_directory path/to/target_directory
+
+  - Copy text files to another location, in interactive mode (prompts user before overwriting):
+    cp -i *.txt path/to/target_directory
+
+  - Follow symbolic links before copying:
+    cp -L link path/to/target_directory
+
+  - Use the full path of source files, creating any missing intermediate directories when copying:
+    cp --parents source/path/to/file path/to/target_file
+
+4.mv
+Move or rename files and directories.
+  - Move a file to an arbitrary location:
+    mv source target
+
+  - Move files into another directory, keeping the filenames:
+    mv source1 source2 source3 target_directory
+
+  - Do not prompt for confirmation before overwriting existing files:
+    mv -f source target
+
+  - Prompt for confirmation before overwriting existing files, regardless of file permissions:
+    mv -i source target
+
+  - Do not overwrite existing files at the target:
+    mv -n source target
+
+  - Move files in verbose mode, showing files after they are moved:
+    mv -v source target
+  - Add prefixes to file names in batches, x is the prefix that needs to be added
+      for f in * ; do mv "$f" "x$f" ; done
+
+5.rm
+Remove files or directories.
+  - Remove files from arbitrary locations:
+    rm path/to/file path/to/another/file
+
+  - Recursively remove a directory and all its subdirectories:
+    rm -r path/to/directory
+
+  - Forcibly remove a directory, without prompting for confirmation or showing error messages:
+    rm -rf path/to/directory
+
+  - Interactively remove multiple files, with a prompt before every removal:
+    rm -i path/to/file1 path/to/file2 ...
+
+  - Remove files in verbose mode, printing a message for each removed file:
+    rm -v path/to/directory/*
+
+6.chmod
+Change the access permissions of a file or directory.
+
+  - Give the [u]ser who owns a file the right to e[x]ecute it:
+    chmod u+x path/to/file
+
+  - Give the [u]ser rights to [r]ead and [w]rite to a file/directory:
+    chmod u+rw path/to/file_or_directory
+
+  - Remove e[x]ecutable rights from the [g]roup:
+    chmod g-x path/to/file
+
+  - Give [a]ll users rights to [r]ead and e[x]ecute:
+    chmod a+rx path/to/file
+
+  - Give [o]thers (not in the file owner's group) the same rights as the [g]roup:
+    chmod o=g path/to/file
+
+  - Remove all rights from [o]thers:
+    chmod o= path/to/file
+
+  - Change permissions recursively giving [g]roup and [o]thers the ability to [w]rite:
+    chmod -R g+w,o+w path/to/directory
+
+  - Recursively give [a]ll users [r]ead permissions to files and e[X]ecute permissions to sub-directories within a directory:
+    chmod -R a+rX path/to/directory
+Supplement: digital method
+chmod 755 filename ------> corresponds to ------>  chmod u+rwx, g+rx, o+rx filename
+chmod 751 filename ------> corresponds to ------>  chmod u+rwx, g+rx, o+x filename
+chmod 765 filename ------> corresponds to ------>  chmod u+rwx, g+rw, o+rx filename
+chmod 777 filename ------> corresponds to ------>  chmod u+rwx, g+rwx, o+rwx filename
+
+7.tar
+Archiving utility.
+  Often combined with a compression method, such as gzip or bzip2.
+
+  - [c]reate an archive and write it to a [f]ile:
+    tar cf target.tar file1 file2 file3
+
+  - [c]reate a g[z]ipped archive and write it to a [f]ile:
+    tar czf target.tar.gz file1 file2 file3
+
+  - [c]reate a g[z]ipped archive from a directory using relative paths:
+    tar czf target.tar.gz --directory=path/to/directory .
+
+  - E[x]tract a (compressed) archive [f]ile into the current directory [v]erbosely:
+    tar xvf source.tar[.gz|.bz2|.xz]
+
+  - E[x]tract a (compressed) archive [f]ile into the target directory:
+    tar xf source.tar[.gz|.bz2|.xz] --directory=path/to/directory
+
+  - [c]reate a compressed archive and write it to a [f]ile, using [a]rchive suffix to determine the compression program:
+    tar caf target.tar.xz file1 file2 file3
+
+  - Lis[t] the contents of a tar [f]ile [v]erbosely:
+    tar tvf source.tar
+
+  - E[x]tract files matching a pattern from an archive [f]ile:
+    tar xf source.tar --wildcards "*.html"
+(Note: The .tar format just packs the files without compression, and .tar.gz means to pack the files and then compress them with gzip)
+
+8.sudo
+Executes a single command as the superuser or another user.
+  - Run a command as the superuser:
+    sudo less /var/log/syslog
+
+  - Edit a file as the superuser with your default editor:
+    sudo --edit /etc/fstab
+
+  - Run a command as another user and/or group:
+    sudo --user=user --group=group id -a
+
+  - Repeat the last command prefixed with `sudo` (only in `bash`, `zsh`, etc.):
+    sudo !!
+
+  - Launch the default shell with superuser privileges and run login-specific files (`.profile`, `.bash_profile`, etc.):
+    sudo --login
+
+  - Launch the default shell with superuser privileges without changing the environment:
+    sudo --shell
+
+  - Launch the default shell as the specified user, loading the user's environment and reading login-specific files (`.profile`, `.bash_profile`, etc.):
+    sudo --login --user=user
+
+  - List the allowed (and forbidden) commands for the invoking user:
+    sudo --list
+
+9.su
+Switch shell to another user.
+ - Switch to superuser (requires the root password):
+    su
+
+  - Switch to a given user (requires the user's password):
+    su username
+
+  - Switch to a given user and simulate a full login shell:
+    su - username
+
+  - Execute a command as another user:
+    su - username -c "command"
+
+10.mount
+Provides access to an entire filesystem in one directory.
+  - Show all mounted filesystems:
+    mount
+
+  - Mount a device to a directory:
+    mount -t filesystem_type path/to/device_file path/to/target_directory
+
+  - Create a specific directory if it does not exist and mount a device to it:
+    mount --mkdir path/to/device_file path/to/target_directory
+
+  - Mount a device to a directory for a specific user:
+    mount -o uid=user_id,gid=group_id path/to/device_file path/to/target_directory
+
+  - Mount a CD-ROM device (with the filetype ISO9660) to `/cdrom` (readonly):
+    mount -t iso9660 -o ro /dev/cdrom /cdrom
+
+  - Mount all the filesystem defined in `/etc/fstab`:
+    mount -a
+
+  - Mount a specific filesystem described in `/etc/fstab` (e.g. `/dev/sda1 /my_drive ext2 defaults 0 2`):
+    mount /my_drive
+
+  - Mount a directory to another directory:
+    mount --bind path/to/old_dir path/to/new_dir
+
+11.chroot
+Run command or interactive shell with special root directory.
+ - Run command as new root directory:
+    chroot path/to/new/root command
+
+  - Specify user and group (ID or name) to use:
+    chroot --userspec=user:group
+
+12.useradd
+Create a new user.
+  - Create a new user:
+    sudo useradd username
+
+  - Create a new user with the specified user id:
+    sudo useradd --uid id username
+
+  - Create a new user with the specified shell:
+    sudo useradd --shell path/to/shell username
+
+  - Create a new user belonging to additional groups (mind the lack of whitespace):
+    sudo useradd --groups group1,group2,... username
+
+  - Create a new user with the default home directory:
+    sudo useradd --create-home username
+
+  - Create a new user with the home directory filled by template directory files:
+    sudo useradd --skel path/to/template_directory --create-home username
+
+  - Create a new system user without the home directory:
+    sudo useradd --system username
+
+13.userdel
+Remove a user account or remove a user from a group.
+  - Remove a user:
+    sudo userdel username
+
+  - Remove a user in other root directory:
+    sudo userdel --root path/to/other/root username
+
+  - Remove a user along with the home directory and mail spool:
+    sudo userdel --remove username
+
+14.users
+Display a list of logged in users.
+  - Print logged in usernames:
+    users
+
+  - Print logged in usernames according to a given file:
+    users /var/log/wmtp
+
+15.usermod
+Modifies a user account.
+  - Change a username:
+    sudo usermod --login new_username username
+
+  - Change a user id:
+    sudo usermod --uid id username
+
+  - Change a user shell:
+    sudo usermod --shell path/to/shell username
+
+  - Add a user to supplementary groups (mind the lack of whitespace):
+    sudo usermod --append --groups group1,group2,... username
+
+  - Change a user home directory:
+    sudo usermod --move-home --home path/to/new_home username
+
+16.top
+Display dynamic real-time information about running processes.
+  - Start top:
+    top
+
+  - Do not show any idle or zombie processes:
+    top -i
+
+  - Show only processes owned by given user:
+    top -u username
+
+  - Sort processes by a field:
+    top -o field_name
+
+  - Show the individual threads of a given process:
+    top -Hp process_id
+
+  - Show only the processes with the given PID(s), passed as a comma-separated list. (Normally you wouldn't know PIDs off hand. This example picks the PIDs from the process name):
+    top -p $(pgrep -d ',' process_name)
+
+  - Get help about interactive commands:
+    ?
+
+17.free
+Display amount of free and used memory in the system.
+ - Display system memory:
+    free
+
+  - Display memory in Bytes/KB/MB/GB:
+    free -b|k|m|g
+
+  - Display memory in human-readable units:
+    free -h
+
+  - Refresh the output every 2 seconds:
+    free -s 2
+
+18.uname
+Uname prints information about the machine and operating system it is run on.
+  - Print all information:
+    uname --all
+
+  - Print the current kernel name:
+    uname --kernel-name
+
+  - Print the current network node host name:
+    uname --nodename
+
+  - Print the current kernel release:
+    uname --kernel-release
+
+  - Print the current kernel version:
+    uname --kernel-version
+
+  - Print the current machine hardware name:
+    uname --machine
+
+  - Print the current processor type:
+    uname --processor
+
+  - Print the current operating system name:
+    uname --operating-system
+
+19.exit
+Exit the shell.
+  - Exit the shell with the exit code of the last command executed:
+    exit
+
+  - Exit the shell with the specified exit code:
+    exit exit_code
+
+20.reboot
+Reboot the system.
+  - Reboot the system:
+    reboot
+
+  - Power off the system (same as `poweroff`):
+    reboot --poweroff
+
+  - Halt the system (same as `halt`):
+    reboot --halt
+
+  - Reboot immediately without contacting the system manager:
+    reboot --force
+
+  - Write the wtmp shutdown entry without rebooting the system:
+    reboot --wtmp-only
+
+21.halt
+Halt the system.
+ - Halt the system:
+    halt
+
+  - Power off the system (same as `poweroff`):
+    halt --poweroff
+
+  - Reboot the system (same as `reboot`):
+    halt --reboot
+
+  - Halt immediately without contacting the system manager:
+    halt --force --force
+
+  - Write the wtmp shutdown entry without halting the system:
+    halt --wtmp-only
+
+22.poweroff
+Power off the system.
+  - Power off the system:
+    poweroff
+
+  - Halt the system (same as `halt`):
+    poweroff --halt
+
+  - Reboot the system (same as `reboot`):
+    poweroff --reboot
+
+  - Shut down immediately without contacting the system manager:
+    poweroff --force --force
+
+  - Write the wtmp shutdown entry without shutting down the system:
+    poweroff --wtmp-only
+
+23.shutdown
+Shutdown and reboot the system.
+  - Power off (halt) immediately:
+    shutdown -h now
+
+  - Reboot immediately:
+    shutdown -r now
+
+  - Reboot in 5 minutes:
+    shutdown -r +5 &
+
+  - Shutdown at 1:00 pm (Uses 24h clock):
+    shutdown -h 13:00
+
+  - Cancel a pending shutdown/reboot operation:
+    shutdown -c
+
+24.clear
+Clears the screen of the terminal.
+  - Clear the screen (equivalent to pressing Control-L in Bash shell):
+    clear
+
+  - Clear the screen but keep the terminal's scrollback buffer:
+    clear -x
+
+  - Indicate the type of terminal to clean (defaults to the value of the environment variable `TERM`):
+    clear -T type_of_terminal
+
+  - Show the version of `ncurses` used by `clear`:
+    clear -V
+
+25.uptime
+Tell how long the system has been running and other information.
+  - Print current time, uptime, number of logged-in users and other information:
+    uptime
+
+  - Show only the amount of time the system has been booted for:
+    uptime --pretty
+
+  - Print the date and time the system booted up at:
+    uptime --since
+
+  - Show version information:
+    uptime --version
+
+26.vim
+Vim (Vi IMproved), a command-line text editor, provides several modes for different kinds of text manipulation.
+  Pressing `i` in normal mode enters insert mode. Pressing `Esc` goes back to normal mode, which enables the use of Vim commands.
+  - Open a file:
+    vim path/to/file
+
+  - Open a file at a specified line number:
+    vim +line_number path/to/file
+
+  - View Vim's help manual:
+    :help<Enter>
+
+  - Save and quit the current buffer:
+    :wq<Enter>
+
+  - Enter normal mode and undo the last operation:
+    <ESC>u
+
+  - Search for a pattern in the file (press `n`/`N` to go to next/previous match):
+    /search_pattern<Enter>
+
+  - Perform a regular expression substitution in the whole file:
+    :%s/regular_expression/replacement/g<Enter>
+
+  - Display the line numbers:
+    :set nu<Enter>
+
+27.cat
+Print and concatenate files.
+  - Print the contents of a file to the standard output:
+    cat path/to/file
+
+  - Concatenate several files into an output file:
+    cat path/to/file1 path/to/file2 ... > path/to/output_file
+
+  - Append several files to an output file:
+    cat path/to/file1 path/to/file2 ... >> path/to/output_file
+
+  - Copy the contents of a file into an output file in [u]nbuffered mode:
+    cat -u /dev/tty12 > /dev/tty13
+
+  - Write `stdin` to a file:
+    cat - > path/to/file
+
+  - [n]umber all output lines:
+    cat -n path/to/file
+
+  - Display non-printable and whitespace characters (with `M-` prefix if non-ASCII):
+    cat -v -t -e path/to/file
+
+28.touch
+Create files and set access/modification times.
+  - Create specific files:
+    touch path/to/file1 path/to/file2 ...
+
+  - Set the file [a]ccess or [m]odification times to the current one and don't [c]reate file if it doesn't exist:
+    touch -c -a|m path/to/file1 path/to/file2 ...
+
+  - Set the file [t]ime to a specific value and don't [c]reate file if it doesn't exist:
+    touch -c -t YYYYMMDDHHMM.SS path/to/file1 path/to/file2 ...
+
+  - Set the file time of a specific file to the time of anothe[r] file and don't [c]reate file if it doesn't exist:
+    touch -c -r ~/.emacs path/to/file1 path/to/file2 ...
+
+29.rename
+Rename multiple files.
+ - Rename files using simple substitutions (substitute 'foo' with 'bar' wherever found):
+    rename foo bar *
+
+  - Dry-run - display which renames would occur without performing them:
+    rename -vn foo bar *
+
+  - Do not overwrite existing files:
+    rename -o foo bar *
+
+  - Change file extensions:
+    rename .ext .bak *.ext
+
+  - Prepend "foo" to all filenames in the current directory:
+    rename '' 'foo' *
+
+  - Rename a group of increasingly numbered files zero-padding the numbers up to 3 digits:
+    rename foo foo00 foo? && rename foo foo0 foo??
+
+30.nano
+Simple, easy to use command-line text editor. An enhanced, free Pico clone.
+  - Open a new file in nano:
+    nano
+
+  - Open a specific file:
+    nano path/to/file
+
+  - Open a specific file, positioning the cursor at the specified line and column:
+    nano +line,column path/to/file
+
+  - Open a specific file and enable soft wrapping:
+    nano --softwrap path/to/file
+
+  - Open a specific file and indent new lines to the previous lines' indentation:
+    nano --autoindent path/to/file
+
+  - Open nano and create a backup file (`file~`) when saving edits:
+    nano --backup path/to/file
+
+31.mkdir
+Creates a directory.
+  - Create a directory in current directory or given path:
+    mkdir path/to/directory
+
+  - Create multiple directories in the current directory:
+    mkdir directory_1 directory_2 ...
+
+  - Create directories recursively (useful for creating nested dirs):
+    mkdir -p path/to/directory
+
+32.date
+Set or display the system date.
+  - Display the current date using the default locale's format:
+    date +%c
+
+  - Display the current date in UTC, using the ISO 8601 format:
+    date -u +%Y-%m-%dT%H:%M:%S%Z
+
+  - Display the current date as a Unix timestamp (seconds since the Unix epoch):
+    date +%s
+
+  - Convert a date specified as a Unix timestamp to the default format:
+    date -d @1473305798
+
+  - Convert a given date to the Unix timestamp format:
+    date -d "2018-09-01 00:00" +%s --utc
+
+  - Display the current date using the RFC-3339 format (`YYYY-MM-DD hh:mm:ss TZ`):
+    date --rfc-3339=s
+
+  - Set the current date using the format `MMDDhhmmYYYY.ss` (`YYYY` and `.ss` are optional):
+    date 093023592021.59
+
+  - Display the current ISO week number:
+    date +%V
+
+33.less
+Open a file for interactive reading, allowing scrolling and search.
+  - Open a file:
+    less source_file
+
+  - Page down / up:
+    <Space> (down), b (up)
+
+  - Go to end / start of file:
+    G (end), g (start)
+
+  - Forward search for a string (press `n`/`N` to go to next/previous match):
+    /something
+
+  - Backward search for a string (press `n`/`N` to go to next/previous match):
+    ?something
+
+  - Follow the output of the currently opened file:
+    F
+
+  - Open the current file in an editor:
+    v
+
+  - Exit:
+    q
+
+34.tree
+  - Print files and directories up to 'num' levels of depth (where 1 means the current directory):
+    tree -L num
+
+  - Print directories only:
+    tree -d
+
+  - Print hidden files too with colorization on:
+    tree -a -C
+
+  - Print the tree without indentation lines, showing the full path instead (use `-N` to not escape non-printable characters):
+    tree -i -f
+
+  - Print the size of each file and the cumulative size of each directory, in human-readable format:
+    tree -s -h --du
+
+  - Print files within the tree hierarchy, using a wildcard (glob) pattern, and pruning out directories that don't contain matching files:
+    tree -P '*.txt' --prune
+
+  - Print directories within the tree hierarchy, using the wildcard (glob) pattern, and pruning out directories that aren't ancestors of the wanted one:
+    tree -P directory_name --matchdirs --prune
+
+  - Print the tree ignoring the given directories:
+    tree -I 'directory_name1|directory_name2'
+
+35.kill
+Sends a signal to a process, usually related to stopping the process.
+  All signals except for SIGKILL and SIGSTOP can be intercepted by the process to perform a clean exit.
+  - Terminate a program using the default SIGTERM (terminate) signal:
+    kill process_id
+
+  - List available signal names (to be used without the `SIG` prefix):
+    kill -l
+
+  - Terminate a background job:
+    kill %job_id
+
+  - Terminate a program using the SIGHUP (hang up) signal. Many daemons will reload instead of terminating:
+    kill -1|HUP process_id
+
+  - Terminate a program using the SIGINT (interrupt) signal. This is typically initiated by the user pressing `Ctrl + C`:
+    kill -2|INT process_id
+
+  - Signal the operating system to immediately terminate a program (which gets no chance to capture the signal):
+    kill -9|KILL process_id
+
+  - Signal the operating system to pause a program until a SIGCONT ("continue") signal is received:
+    kill -17|STOP process_id
+
+  - Send a `SIGUSR1` signal to all processes with the given GID (group id):
+    kill -SIGUSR1 -group_id
+
+36.killall
+Send kill signal to all instances of a process by name (must be exact name).
+  All signals except SIGKILL and SIGSTOP can be intercepted by the process, allowing a clean exit.
+  - Terminate a process using the default SIGTERM (terminate) signal:
+    killall process_name
+
+  - List available signal names (to be used without the 'SIG' prefix):
+    killall --list
+
+  - Interactively ask for confirmation before termination:
+    killall -i process_name
+
+  - Terminate a process using the SIGINT (interrupt) signal, which is the same signal sent by pressing `Ctrl + C`:
+    killall -INT process_name
+
+  - Force kill a process:
+    killall -KILL process_name
+
+37.startx
+The startx script is a front end to xinit that provides a nice user interface for running a single session of the X Window System.
+
+  - Start an X session:
+    startx
+
+  - Start an X session with a predefined depth value:
+    startx -- -depth value
+
+  - Start an X session with a predefined dpi value:
+    startx -- -dpi value
+
+  - Override the settings in the `.xinitrc` file and start a new X session:
+    startx /path/to/window_manager_or_desktop_environment
+
+38.xkill
+Kill a window interactively in a graphical session.
+  - Display a cursor to kill a window when pressing the left mouse button (press any other mouse button to cancel):
+    xkill
+
+  - Display a cursor to select a window to kill by pressing any mouse button:
+    xkill -button any
+
+39.who
+Display who is logged in and related data (processes, boot time).
+  - Display the username, line, and time of all currently logged-in sessions:
+    who
+
+  - Display information only for the current terminal session:
+    who am i
+
+  - Display all available information:
+    who -a
+
+  - Display all available information with table headers:
+    who -a -H
+
+40.ping
+Send ICMP ECHO_REQUEST packets to network hosts.
+- Ping host:
+    ping host
+
+  - Ping a host only a specific number of times:
+    ping -c count host
+
+  - Ping host, specifying the interval in seconds between requests (default is 1 second):
+    ping -i seconds host
+
+  - Ping host without trying to lookup symbolic names for addresses:
+    ping -n host
+
+  - Ping host and ring the bell when a packet is received (if your terminal supports it):
+    ping -a host
+
+  - Also display a message if no response was received:
+    ping -O host
+
+
