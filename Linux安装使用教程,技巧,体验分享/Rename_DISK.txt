@@ -1,0 +1,73 @@
+查看当前所有分区：sudo fdisk -l
+查看所有分区的磁盘格式：df -Th
+注：ntfs-3g、fuse 软件包支持 NTFS 格式分区，exfat-utils、fuse-exfat 软件包支持 exFAT 格式分区，mtools 软件包支持 FAT 格式分区，如果没有这几个软件就安装一下。
+
+一、EXT 文件系统磁盘分区重命名
+在 Linux 中，可以使用 e2label 命令或 tune2fs 命令来修改 EXT 文件系统的磁盘分区的名称。以下是使用这两个命令修改 EXT 文件系统磁盘分区名称的方法：
+
+1.使用 e2label 命令修改磁盘分区名称
+e2label 命令可以用来修改 ext2、ext3 和 ext4 文件系统的卷标。使用 e2label 命令修改分区名称的步骤如下：
+首先需要卸载目标分区，确保它没有被使用：
+	sudo umount /dev/sdXn
+使用 e2label 命令来修改卷标名称，语法如下：
+	sudo e2label /dev/sdXn new-name
+	其中，/dev/sdXn 是您要修改的分区设备名称和分区号，new-name 是您要设置的新名称。
+修改完名称后，重新挂载分区：
+	sudo mount /dev/sdXn /mnt/data
+注意，/mnt/data 是您挂载分区的路径，请根据实际情况进行修改。
+
+2.使用 tune2fs 命令修改磁盘分区名称
+tune2fs 命令可以用来修改 ext2、ext3 和 ext4 文件系统的卷标、保留块计数和文件系统最佳块大小等信息。使用 tune2fs 命令修改分区名称的步骤如下：
+首先需要卸载目标分区，确保它没有被使用：
+	sudo umount /dev/sdXn
+使用 tune2fs 命令来修改卷标名称，语法如下：
+	sudo tune2fs /dev/sdXn -L new-name
+	其中，/dev/sdXn 是您要修改的分区设备名称和分区号，new-name 是您要设置的新名称。
+修改完名称后，重新挂载分区：
+	sudo mount /dev/sdXn /mnt/data
+注意，/mnt/data 是您挂载分区的路径，请根据实际情况进行修改。 无论您使用 e2label 命令还是 tune2fs 命令来修改分区名称，都需要卸载目标分区并重新挂载分区以生效。
+
+二、NTFS 文件系统磁盘分区重命名
+在 Linux 中，可以使用 ntfslabel 命令修改 NTFS 文件系统的磁盘分区名称。
+使用 ntfslabel 命令修改 NTFS 分区名称的步骤如下：
+首先需要下载并安装 ntfs-3g 工具包，可使用以下命令安装：
+	sudo apt-get install ntfs-3g
+	如果您使用的是其他 Linux 发行版，可以使用相应的包管理工具来安装 ntfs-3g。
+然后需要卸载目标分区，确保它没有被使用：
+	sudo umount /dev/sdXn
+接下来，使用 ntfslabel 命令来给 NTFS 文件系统分区设置卷标名称，语法如下：
+	sudo ntfslabel /dev/sdXn new-name
+	其中，/dev/sdXn 是您要修改的分区设备名称和分区号，new-name 是您要设置的新名称。
+设置完成后，重新挂载分区：
+	sudo mount /dev/sdXn /mnt/data
+注意，/mnt/data 是您挂载分区的路径，请根据实际情况进行修改。 使用 ntfslabel 命令修改 NTFS 分区名称是一种简单有效的方法。请注意，在挂载分区之前，请确保卸载并关闭该分区，否则文件系统可能会损坏。完成修改后，您可以使用 df 命令来查看分区信息，以确认分区名称是否已更改。
+
+三、FAT 文件系统磁盘分区重命名
+在 Linux 中，可以使用 mtools 命令修改 FAT 文件系统磁盘分区名称。
+使用 mtools 命令修改 FAT 分区名称的步骤如下：
+首先需要安装 mtools 工具包，可使用以下命令安装：
+	sudo apt-get install mtools
+	如果您使用的是其他 Linux 发行版，可以使用相应的包管理工具来安装 mtools。
+然后需要卸载目标分区，确保它没有被使用：
+	sudo umount /dev/sdXn
+接下来，使用 mtools 命令来给 FAT 文件系统分区设置卷标名称，语法如下：
+	sudo mlabel -i /dev/sdXn ::new-name
+其中，/dev/sdXn 是您要修改的分区设备名称和分区号，new-name 是您要设置的新名称。
+注意，在卷标名称前需要加上双冒号 ::。
+设置完成后，重新挂载分区。 sudo mount /dev/sdXn /mnt/data
+注意，/mnt/data 是您挂载分区的路径，请根据实际情况进行修改。 使用 mtools 命令修改 FAT 分区名称是一种简单有效的方法。请注意，在挂载分区之前，请确保卸载并关闭该分区，否则文件系统可能会损坏。完成修改后，您可以使用 df 命令来查看分区信息，以确认分区名称是否已更改。
+
+四、exFAT 文件系统磁盘分区重命名
+在 Linux 中，可以使用 exfatlabel 命令修改 exFAT 文件系统的磁盘分区名称。
+使用 exfatlabel 命令修改 exFAT 分区名称的步骤如下：
+首先需要安装 exfat-utils 工具包，可使用以下命令安装：
+	sudo apt-get install exfat-utils
+	如果您使用的是其他 Linux 发行版，可以使用相应的包管理工具来安装 exfat-utils。
+然后需要卸载目标分区，确保它没有被使用：
+	sudo umount /dev/sdXn
+接下来，使用 exfatlabel 命令来给 exFAT 文件系统分区设置卷标名称，语法如下：
+	sudo exfatlabel /dev/sdXn new-name
+	其中，/dev/sdXn 是您要修改的分区设备名称和分区号，new-name 是您要设置的新名称
+设置完成后，重新挂载分区：
+	sudo mount /dev/sdXn /mnt/data
+注意，/mnt/data 是您挂载分区的路径，请根据实际情况进行修改。 使用 exfatlabel 命令修改 exFAT 分区名称是一种简单有效的方法。请注意，在挂载分区之前，请确保卸载并关闭该分区，否则文件系统可能会损坏。完成修改后，您可以使用 df 命令来查看分区信息，以确认分区名称是否已更改。

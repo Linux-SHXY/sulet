@@ -1,0 +1,19 @@
+这是/dev/sda和/dev/nvme0的区别
+
+/dev/sd 最初用于使用 sd-bus 驱动程序的设备，它是 SCSI 设备的驱动程序（sd 字面意思是 SCSI 磁盘）。 现在它用于 SCSI 磁盘、SATA 磁盘和 USB 磁盘。 原因似乎是现在几乎所有设备都在非 SCSI 总线之上使用 SCSI 命令协议（内核使用 libata 平等对待所有 ATA 设备，并假装它们是 SCSI 设备 - 感谢@grawity），因此 我们将所有这些设备视为 /dev/sd。
+
+但并不是所有的存储设备都是/dev/sd。 /dev/hd 和 /dev/xvd 仍在使用 - 前者用于 PATA/IDE 磁盘，后者用于云存储设备（虚拟磁盘等），它们都有不同的驱动程序和命名。 你看不到它们是因为虚拟存储只在云/虚拟机管理程序上（你可能不使用任何）并且因为 PATA/IDE 磁盘变得越来越稀有并且在大多数现代机器上内核实际上使用 ide-scsi 驱动程序 将其转换为 SCSI 协议
+
+其他示例包括 /dev/mmcblkXpY，它用于 SD/eMMC/裸 NAND/NOR 设备，与 /dev/nvme 和 /dev/vd 具有相同的命名方案，它再次用于云存储中的虚拟磁盘
+
+在您的例子中，它被称为 /dev/nvme 因为磁盘通过 NVME 端口连接并在 Linux 上使用 nvme 驱动程序。 您可以将 /dev/<something> 视为使用 <something> 驱动程序的设备。 所有的设备驱动程序和命名都有自己的标准，并不是所有的标准都适用，所以如果 NVME 设备的命名是这样的话，那完全没问题。 nvme 也没有转换为 scsi 的原因是这两个协议差异太大，这样的实现太复杂
+
+==============以下为英文原文=======================
+
+/dev/sd was originally used for devices using the sd-bus driver, which is the driver for SCSI devices (and sd literally stands for SCSI disk). Nowadays it is used for SCSI disks, SATA disks, and USB disks. The reason seems to be that now almost all devices use the SCSI command protocol on top of non-SCSI bus (the kernel treats all ATA-devices equally using libata and it pretends they're SCSI devices - credit to @grawity), and therefore we see all of these devices as /dev/sd.
+
+But not all storage devices are /dev/sd. /dev/hd and /dev/xvd are still used - the former for PATA/IDE disks and the latter for cloud storage devices (virtual disks and etc.) and they all have different drivers and naming. You don't see them because virtual storage is only on clouds / hypervisors (and you probably don't use any) and because PATA/IDE disks are becoming more and more rare and on most modern machines the kernel actually uses ide-scsi driver to translate it to SCSI protocol 
+
+Other examples include /dev/mmcblkXpY which is for SD/eMMC/bare NAND/NOR devices and has the same naming scheme as /dev/nvme and /dev/vd which is again used for virtual disks in cloud storage (credit to @Jan Dorniak for the extra examples).
+
+In your case, it is called /dev/nvme because the disk is connected through an NVME port and uses the nvme driver on Linux. You can just think of /dev/<something> as a device that uses <something> driver. All device drivers and namings have their own standards, it's not one standard for all of them, so it's completely okay if the naming for NVME devices is like that. And the reason why nvme isn't translated to scsi as well is that the two protocols are too different and such an implementation would be too complex 
