@@ -1,0 +1,9 @@
+# iso 镜像
+文件名: jargal-2024.01.13-alpha-x86_64.iso
+大小: 3.40GB
+下载链接: https://www.123pan.com/s/jR1SVv-5Mf6d.html提取码:Kdxy
+
+# 源文件
+文件名: alci-iso-lts.tar.gz
+大小: 620.47MB
+下载链接: https://www.123pan.com/s/jR1SVv-qMf6d.html提取码:aroi

@@ -1,0 +1,18 @@
+Manjaro Deepin 20230407 Release
+文件名: manjaro-deepin-22.1.0-230407-linux61.iso
+大小: 3.6GB
+下载链接: https://www.123pan.com/s/jR1SVv-9J46d.html
+(提取码:SLlE)
+备用链接: https://39-165-233-179.d.cjjd15.com:30443/download-cdn.123pan.cn/123-639/5075d607/1813490079-0/5075d60757369c3a8f564ff93424ee7f/c-m1?v=2&t=1681003318&s=ab06f05dc41393397c0a3086027a7387&filename=manjaro-deepin-22.1.0-230407-linux61.iso&d=ce8201fa
+
+##########################################################################################################################
+
+版本介绍:
+
+这是Deepin桌面环境的Manjaro发行版, 是原Manjaro Deepin项目的的延续
+
+*Manjaro Deepin复活, 更新至2023最新版本
+*在原基础上预装了Libreoffice办公软件
+*预装vim编辑器
+
+这是一款新手入门级发行版, 欢迎大家下载使用, 并提出宝贵意见

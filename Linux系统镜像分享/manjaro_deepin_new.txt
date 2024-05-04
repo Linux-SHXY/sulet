@@ -1,0 +1,17 @@
+这是Manjaro Deepin项目的一个延续
+本次更新主要内容:
+*更新manjaro系统到最新
+*预装deepin-movie,作为视频播放器
+*预装deepin-music, 作为音乐播放器
+*预装了deepin-mail电子邮箱软件
+*预装深度系统监视器
+上个版本缺少这些必要的的软件, 所以在本次更新中我加上了这些软件
+*更新频率改变: 新的iso镜像不再按月发布, 而是不定期发布, 新的iso镜像将不会发布直到有较大的更新
+Github: https://github.com/wiwyil2tr/manjarodeepiniso
+文件名: manjaro-deepin-22.1.0-230507-linux61.iso
+大小: 3.81GB
+下载链接: https://www.123pan.com/s/jR1SVv-8R46d.html
+(提取码:nwVt)
+备用链接: https://111-40-113-9.d.cjjd15.com:30443/download-cdn.123pan.cn/123-555/bed92b32/1813490079-0/bed92b32a3de84206b954ffc966e5a2b/c-m2?v=5&t=1683371389&s=1683371389b42e8ffca1470f382d45689a66bf0fd9&r=0B8U7P&filename=manjaro-deepin-22.1.0-230507-linux61.iso&x-mf-biz-cid=f544d6e1-142c-45fb-94d5-2906c64ea579-584000&auto_redirect=0&xmfcid=e152657f-827b-4b88-ab8b-97a3ca395d03-abf611255-5575-56
+
+

@@ -1,0 +1,10 @@
+Manjaro Deepin ISO (230717)
+
+本次更新主要内容:
+*升级manjaro系统到最新
+
+文件名: manjaro-deepin-22.1.0-230717-linux61.iso
+大小: 3.6G
+
+下载链接: https://www.123pan.com/s/jR1SVv-uKx6d.html (提取码: ZDuD)
+备用链接: https://36-134-210-53.d.cjjd15.com:30443/download-cdn.123pan.cn/123-196/db24fc66/1813490079-0/db24fc66b27b60ae6faf2bf71b487cc4/c-m6?v=5&t=1689686854&s=16896868542db6f60cb987157d4334facfffed72c7&r=DZW3TG&filename=manjaro-deepin-22.1.0-230717-linux61.iso&x-mf-biz-cid=7e95de49-aa76-4e70-9407-1af9d667df1f-73d8e5&auto_redirect=0&xmfcid=ab9ce036-7e0c-45e3-9389-cf25e7ad8b8f-0-cd8a62355
