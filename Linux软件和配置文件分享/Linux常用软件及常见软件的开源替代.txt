@@ -1,0 +1,25 @@
+Linux下常用软件
+(注:本表仅列出了部分开源软件,相关软件不止这些,可能类别也不止这些,本表仅列出较常见常用的软件,欢迎大家纠正和补充)
+办公: libreoffice
+浏览器: firefox chrome chromium
+邮件: thunderbird evolution kmail deepin-mail
+图片浏览: eog eom gwenview shotwell ristretto 
+PDF浏览: evince okular
+文本编辑: vim emacs gedit kwrite kate mousepad leafpad
+C语言编译器: gcc clang cmake
+视频播放: mplayer mpv smplayer kmplayer gnome-mplayer totem deepin-movie vlc
+压缩软件(图形前端): file-roller ark 
+扫描仪软件: simple-scan
+图片处理: gmip krita
+视频处理: kdenlive blender openshot
+格式转换: unoconv(转换文档) ffmpeg(转换音视频和图片)
+ed2k下载: amule
+虚拟机: virtualbox qemu
+硬盘管理: gparted gnome-disks 
+相机: kamoso cheese
+
+常见软件的开源替代品
+MS Office ------ Libre Office
+Photoshop ------ GIMP
+Adobe Premiere ------ kdenlive
+
