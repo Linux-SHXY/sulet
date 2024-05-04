@@ -1,0 +1,41 @@
+定制iso的主要步骤
+本文档列出的方案在debian系列发行版上完全可行, 在arch系列发行版上需要选择性执行
+下面以linux.iso为例
+
+1.取出iso里面的所有内容 
+sudo mkdir  oldiso    newiso
+sudo mount  linux.iso  oldiso  -o  loop 
+sudo  cp  oldiso/*    newiso/      -rp
+sudo  umount  oldiso
+2.解压filesystem.squashfs(下面以debian为例)(manjaro在manjaro/x86_64/里, 分为rootfs.sfs desktopfs.sfs等)
+sudo unsquashfs newiso/live/filesystem.squashfs
+3.使要定制的系统联网
+sudo cp /etc/resolv.conf    squashfs-root/etc
+4.chroot进去
+sudo  chroot  squashfs-root     
+有些程序需要proc，所以这里先挂载上
+mount none  /proc    -t proc
+5.开始自由定制
+6.定制完毕后的工作
+apt-get clean (Debian系统删除已下载安装的软件包)
+rm -rf /var/cache/pacman/pkg/*(Arch系统删除已下载安装的软件包)
+rm /etc/resolv.conf
+umount /proc
+搞定之后，按ctrl+d 退出系统
+7.生成安装软件列表(以debian为例, arch不需要此步骤)
+sudo chroot  squashfs-root  dpkg-query -W --showformat='${Package} ${Version}\n' | sudo tee newiso/casper/filesystem.manifest
+sudo cp -v ../newiso/live/filesystem.manifest{,-desktop}  
+8.REMOVE定义不安装的软件(以debian为例, arch不需要此步骤)
+REMOVE='ubiquity casper live-initramfs user-setup discover1 xresprobe os-prober libdebian-installer4 live-boot live-boot-doc live-boot-initramfs-tools live-config live-config-doc live-config-systemd live-task-base live-task-localisation live-task-localisation-desktop live-task-recommended live-task-xfce live-tools  calamares calamares-settings-debian'
+for i in $REMOVE ; do  sudo sed -i "/${i}/d" ../newiso/live/filesystem.manifest-desktop; done
+9.打包squashfs
+sudo rm newiso/live/filesystem.squashfs
+sudo mksquashfs  squashfs-root    newiso/live/filesystem.squashfs
+10.生成各个文件的md5值.
+sudo -s
+(cd newiso && find . -type f -print0 | xargs -0 md5sum > md5sum.txt)
+exit
+11.打包iso
+sudo mkisofs -r -V "optimized debian 11 v1" -cache-inodes -J -l -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -o "../optimized-debian-live-11.6.0-v1-amd64-xfce.iso" .
+cd ../
+定制好的iso文件就是: optimized-debian-live-11.6.0-v1-amd64-xfce.iso
