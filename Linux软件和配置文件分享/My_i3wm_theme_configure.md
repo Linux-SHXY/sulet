@@ -8,10 +8,9 @@ i3wm是一款稳定高效的平铺式窗口管理器,  本脚本可以一键将i
 * 本脚本同时附带一些壁纸
 * 本脚本同时附带触摸板设置, 包括启用轻触, 多指操作等功能
 * 依赖项:
-
-  ```
+```
 redshift-gtk xfce4-screensaver xfce4-power-manager i3-gaps conky copyq dunst blueman kitty ranger rofi polybar ccal lunar-date xbindkeys brightnessctl i3lock-fancy-git neofetch ranger vim(可选)  zsh(可选)
-  ```
+```
 
 * 推荐安装(脚本不自带, 需自行安装)
 
